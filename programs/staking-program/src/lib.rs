@@ -15,8 +15,6 @@ declare_id!("6s3muoRZnpcQ5jjUqPz1Ra9kyWAqiDbXexMmJJegAjRV");
 pub mod staking_program {
     use super::*;
 
-    //const AUTHORITY_PDA_SEED: &[u8] = b"authority";
-
     pub fn stake(ctx: Context<Stake>) -> Result<()> {
         msg!("Inisde Anchor version of staking program");
         // Getting clock directly
@@ -83,10 +81,10 @@ pub mod staking_program {
             return err!(StakeError::UnitializedAccount);
         }
 
-        // if *ctx.accounts.stake_state != StakeState::Staked {
-        //     msg!("Stake account is not staking anything");
-        //     return err!(StakeError::InvalidStakeState)
-        // }
+        if ctx.accounts.stake_state.stake_state != StakeState::Staked {
+            msg!("Stake account is not staking anything");
+            return err!(StakeError::InvalidStakeState)
+        }
 
         msg!("Stake last redeem: {:?}", ctx.accounts.stake_state.last_stake_redeem);
         msg!("Current time: {:?}", clock.unix_timestamp);
@@ -124,14 +122,13 @@ pub mod staking_program {
             return err!(StakeError::UnitializedAccount);
         }
     
-        // if *ctx.accounts.stake_state != StakeState::Staked {
-        //     msg!("Stake account is not staking anything");
-        //     return err!(StakeError::InvalidStakeState)
-        // }
+        if ctx.accounts.stake_state.stake_state != StakeState::Staked {
+            msg!("Stake account is not staking anything");
+            return err!(StakeError::InvalidStakeState)
+        }
     
          // Thaw NFT token account
         msg!("Thawing NFT token account...");
-        // CPI to Token program to mint tokens
         let delegate_bump = *ctx.bumps.get("program_authority").unwrap();
         invoke_signed(
             &mpl_token_metadata::instruction::thaw_delegated_account(
