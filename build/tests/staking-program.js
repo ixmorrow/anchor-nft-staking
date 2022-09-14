@@ -38,7 +38,7 @@ const js_1 = require("@metaplex-foundation/js");
 const mpl_token_metadata_1 = require("@metaplex-foundation/mpl-token-metadata");
 const spl_token_1 = require("@solana/spl-token");
 // MY WALLET SETTING
-const id_json_path = require('os').homedir() + "/.config/solana/test-wallet.json";
+const id_json_path = require('os').homedir() + "/.config/solana/test.json";
 const secret = Uint8Array.from(JSON.parse(require("fs").readFileSync(id_json_path)));
 const wallet = web3_js_1.Keypair.fromSecretKey(secret);
 // Configure the client to use the local cluster.
