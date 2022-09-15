@@ -18,7 +18,7 @@ const RPC_ENDPOINT_URL = "https://api.devnet.solana.com";
 const commitment = 'confirmed';
 const connection = new web3_js_1.Connection(RPC_ENDPOINT_URL, commitment);
 // MY WALLET SETTING
-const id_json_path = require('os').homedir() + "/.config/solana/test-wallet.json";
+const id_json_path = require('os').homedir() + "/.config/solana/test.json";
 const secret = Uint8Array.from(JSON.parse(require("fs").readFileSync(id_json_path)));
 exports.wallet = web3_js_1.Keypair.fromSecretKey(secret);
 function delay(milliseconds) {
